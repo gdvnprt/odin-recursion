@@ -13,6 +13,7 @@ const fibs = (x) => {
     return fibArr;
 };
 
+//still buggy - only works on even numbers for y
 const fibsRec = (y) => {
     //if 0, shift 0 to the array and return the array
     if (y == 0) {
