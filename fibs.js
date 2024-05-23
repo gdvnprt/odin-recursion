@@ -13,17 +13,18 @@ const fibs = (x) => {
     return fibArr;
 };
 
-//still buggy - only works on even numbers for y
+//0 doesn't count in fib sequence
 const fibsRec = (y) => {
     //if 0, shift 0 to the array and return the array
-    if (y == 0) {
+    if (y < 2) {
         return [0];
-    } else if (y == 1) {
+    } else if (y == 2) {
         return [0, 1];
     } else {
     //add fibs of the last position to fibs of the position before that
     //shift the result to the array
     const fibsRecArr = fibsRec(y - 1);
-    return [...fibsRecArr, fibsRecArr[y - 1] + fibsRecArr[y - 2]]
+    fibsRecArr.push(fibsRecArr[y - 2] + fibsRecArr[y - 3]);
+    return fibsRecArr;
     };
 };
