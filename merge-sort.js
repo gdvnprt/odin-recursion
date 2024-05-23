@@ -1,35 +1,33 @@
 const mergeSort = (array) => {
-    let newArray = [];
     //if the array is one number, return that number
-    if (array.length == 0) {
-        newArray = array;
-    } else if (array.length == 1) {
-        newArray = array;
+    if (array.length <= 1) {
+        return array;
     } else {
         //take the current array and split it in half
         let halfLength = Math.ceil(array.length / 2);
-        let leftSide = array.slice(0, halfLength);
-        let rightSide = array.slice(halfLength, array.length);
+
         //recursively sort each half
-        mergeSort(leftSide);
-        mergeSort(rightSide);
+        let leftSide = mergeSort(array.slice(0, halfLength));
+        let rightSide = mergeSort(array.slice(halfLength, array.length));
+
+        //return the sorted array
+        return merge(leftSide, rightSide);
+    };
+};
+
+
+//merge helper
+const merge = (left, right) => {
+    let newArray = [];
+    while (left.length && right.length) {
         //compare the first place of each array and place the lowest number first
-        while (leftSide.length > 0) {
-            if (rightSide.length == 0) {
-                newArray.concat(leftSide);
-            } else if (leftSide[0] <= rightSide[0]) {
-                newArray.unshift(leftSide[0]);
-                leftSide.shift();
-            } else {
-                newArray.unshift(rightSide[0]);
-                rightSide.shift();
-            };
-        };
-        //if left side's length is 0, return the other array
-        if (rightSide.length > 0) {
-            newArray.concat(rightSide);
+        if (left[0] <= right[0]) {
+            newArray.push(left[0]);
+            left.shift();
+        } else {
+            newArray.push(right[0]);
+            right.shift();
         };
     };
-//return the sorted array
-return newArray;
+return [...newArray, ...left, ...right];
 };
